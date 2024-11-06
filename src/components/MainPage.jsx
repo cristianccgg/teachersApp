@@ -14,7 +14,7 @@ export const MainPage = () => {
   }, [classes]);
 
   const handleAddClass = () => {
-    const newClassTime = prompt("Enter the class time (e.g., 4:30 pm):");
+    const newClassTime = prompt("Enter the class time/name (e.g., 4:30 pm):");
     if (newClassTime) {
       const newClass = {
         id: `class${newClassTime.replace(/[^0-9]/g, "")}`,
@@ -33,21 +33,21 @@ export const MainPage = () => {
 
   return (
     <div className="flex flex-col gap-5 items-center justify-center">
-      <h1>Dani Marquez Dashboard</h1>
-      <h1>Your Classes</h1>
+      <h1 className="font-bold text-5xl">Dani Marquez Dashboard</h1>
+      <h1 className="font-semibold text-3xl">Your Classes</h1>
       <div className="flex gap-5 flex-wrap">
         {classes.map((classItem) => (
           <div key={classItem.id} className="flex flex-col items-center gap-2">
             <Link
               to={`/class/${classItem.id}`}
               state={{ title: classItem.title }}
-              className="rounded-md border bg-pink-500 text-white p-2"
+              className="rounded-md border bg-pink-500 text-white p-2 text-2xl min-w-32 text-center hover:bg-pink-800"
             >
               {classItem.title}
             </Link>
             <button
               onClick={() => handleDeleteClass(classItem.id)}
-              className="rounded-md border bg-red-500 text-white px-2 py-1 text-sm"
+              className="rounded-md border bg-red-500 text-white px-2 py-1 text-sm hover:bg-red-800"
             >
               Delete
             </button>
@@ -56,7 +56,7 @@ export const MainPage = () => {
 
         <button
           onClick={handleAddClass}
-          className="rounded-md border bg-green-500 text-white p-2"
+          className="rounded-md border bg-green-500 text-white p-2 hover:bg-black"
         >
           + Add New Class
         </button>

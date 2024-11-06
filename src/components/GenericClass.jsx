@@ -336,7 +336,7 @@ function GenericClass() {
                               <img
                                 src={item.content}
                                 alt="dropped-item"
-                                className="h-8 w-8 inline-block"
+                                className="min-h-8 min-w-8 max-w-8 inline-block -translate-y-1"
                               />
                             )}
                           </span>

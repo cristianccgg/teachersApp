@@ -39,7 +39,7 @@ export default function Header() {
   };
 
   return (
-    <div className="flex w-full py-8 ">
+    <div className="flex w-full py-8 font-semibold">
       <div>
         {Object.entries(editableTexts)
           .slice(0, 3)
