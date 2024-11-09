@@ -4,7 +4,7 @@ import estrellas from "../assets/Participacion 5 estrellas.jpeg";
 import sobresaliente from "../assets/Cumplio sobresaliente.jpeg";
 import semana from "../assets/Cumplio objetivo semana.jpeg";
 import practicar from "../assets/Necesit practicar.jpeg";
-import rayo from "../assets/Rayo.jpeg";
+import rayo from "../assets/rayo.jpeg";
 import one from "../assets/1.jpeg";
 import two from "../assets/2.jpeg";
 import three from "../assets/3.jpeg";
