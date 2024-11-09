@@ -1,5 +1,4 @@
 import { useState } from "react";
-import star from "../assets/star.png";
 import dragon from "../assets/dragon.jpeg";
 import estrellas from "../assets/Participacion 5 estrellas.jpeg";
 import sobresaliente from "../assets/Cumplio sobresaliente.jpeg";
