@@ -214,10 +214,10 @@ function GenericClass() {
                   PARTICIPACIÓN
                 </th>
                 <th className="border border-gray-400 px-4 py-2">
-                  MEJORES AREAS
+                  MEJORES ÁREAS
                 </th>
                 <th className="border border-gray-400 px-4 py-2">
-                  AREAS A MEJORAR
+                  ÁREAS A MEJORAR
                 </th>
                 <th className="border border-gray-400 px-4 py-2">
                   {editingHeader === "previousTopics" ? (
@@ -353,13 +353,14 @@ function GenericClass() {
                         }
                       >
                         <option value=""></option>
-                        <option value="fluidez">fluidez</option>
-                        <option value="compresion">compresion</option>
-                        <option value="gramatica">gramatica</option>
-                        <option value="entonacion">entonacion</option>
-                        <option value="pronunciacion">pronunciacion</option>
-                        <option value="vocabulario">vocabulario</option>
+                        <option value="Fluidez">Fluidez</option>
+                        <option value="Compresión">Compresión</option>
+                        <option value="Gramática">Gramática</option>
+                        <option value="Entonación">Entonación</option>
+                        <option value="Pronunciación">Pronunciación</option>
+                        <option value="Vocabulario">Vocabulario</option>
                       </select>
+
                       <div className="flex gap-1 ml-2">
                         {student.selectedOptions1.map((option, index) => (
                           <span
@@ -384,12 +385,12 @@ function GenericClass() {
                         }
                       >
                         <option value=""></option>
-                        <option value="fluidez">fluidez</option>
-                        <option value="compresion">compresion</option>
-                        <option value="gramatica">gramatica</option>
-                        <option value="entonacion">entonacion</option>
-                        <option value="pronunciacion">pronunciacion</option>
-                        <option value="vocabulario">vocabulario</option>
+                        <option value="Fluidez">Fluidez</option>
+                        <option value="Compresión">Compresión</option>
+                        <option value="Gramática">Gramática</option>
+                        <option value="Entonación">Entonación</option>
+                        <option value="Pronunciación">Pronunciación</option>
+                        <option value="Vocabulario">Vocabulario</option>
                       </select>
                       <div className="flex gap-1 ml-2">
                         {student.selectedOptions2.map((option, index) => (

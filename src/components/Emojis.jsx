@@ -78,7 +78,7 @@ const Emojis = () => {
       <h1 className="font-bold text-xl">Significado:</h1>
       <div className="flex gap-5">
         <p
-          className="draggable cursor-grab text-3xl"
+          className="draggable cursor-grab text-3xl w-10"
           draggable="true"
           onDragStart={(event) => handleDragStart(event, "&#9200;")}
         >
@@ -88,7 +88,7 @@ const Emojis = () => {
       </div>
       <div className="flex gap-5">
         <p
-          className="draggable cursor-grab text-3xl"
+          className="draggable cursor-grab text-3xl w-10"
           draggable="true"
           onDragStart={(event) => handleDragStart(event, "&#128248;")}
         >
@@ -120,7 +120,7 @@ const Emojis = () => {
 
       <div className="flex gap-5">
         <p
-          className="draggable cursor-grab text-3xl"
+          className="draggable cursor-grab text-3xl w-10"
           draggable="true"
           onDragStart={(event) => handleDragStart(event, "&#128150;")}
         >
@@ -130,7 +130,7 @@ const Emojis = () => {
       </div>
       <div className="flex gap-5">
         <p
-          className="draggable cursor-grab "
+          className="draggable cursor-grab w-10"
           draggable="true"
           onDragStart={(event) => handleDragStart(event, rayo)}
         >
@@ -145,7 +145,7 @@ const Emojis = () => {
       </div>
       <div className="flex gap-5">
         <p
-          className="draggable cursor-grab "
+          className="draggable cursor-grab w-10"
           draggable="true"
           onDragStart={(event) => handleDragStart(event, estrellas)}
         >
@@ -163,7 +163,7 @@ const Emojis = () => {
 
       <div className="flex gap-5">
         <p
-          className="draggable cursor-grab "
+          className="draggable cursor-grab w-10"
           draggable="true"
           onDragStart={(event) => handleDragStart(event, practicar)}
         >
@@ -178,7 +178,7 @@ const Emojis = () => {
       </div>
       <div className="flex gap-5">
         <p
-          className="draggable cursor-grab "
+          className="draggable cursor-grab w-10"
           draggable="true"
           onDragStart={(event) => handleDragStart(event, sobresaliente)}
         >
@@ -193,7 +193,7 @@ const Emojis = () => {
       </div>
       <div className="flex gap-5">
         <p
-          className="draggable cursor-grab "
+          className="draggable cursor-grab w-10"
           draggable="true"
           onDragStart={(event) => handleDragStart(event, semana)}
         >
