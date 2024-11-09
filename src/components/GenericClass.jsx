@@ -321,7 +321,7 @@ function GenericClass() {
                         (item, index) => (
                           <span
                             key={index}
-                            className="text-2xl cursor-pointer"
+                            className="text-2xl cursor-pointer  items-center justify-center flex  "
                             onClick={() =>
                               handleEmojiClick("dropzone1", index, student.id)
                             }

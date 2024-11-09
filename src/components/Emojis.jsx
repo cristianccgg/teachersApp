@@ -1,6 +1,29 @@
+import { useState } from "react";
 import star from "../assets/star.png";
+import dragon from "../assets/dragon.jpeg";
+import estrellas from "../assets/Participacion 5 estrellas.jpeg";
+import sobresaliente from "../assets/Cumplio sobresaliente.jpeg";
+import semana from "../assets/Cumplio objetivo semana.jpeg";
+import practicar from "../assets/Necesit practicar.jpeg";
+import one from "../assets/1.jpeg";
+import two from "../assets/2.jpeg";
+import three from "../assets/3.jpeg";
+import four from "../assets/4.jpeg";
+import five from "../assets/5.jpeg";
+import six from "../assets/6.jpeg";
 
 const Emojis = () => {
+  const participationImages = [
+    { type: "image", content: one },
+    { type: "image", content: two },
+    { type: "image", content: three },
+    { type: "image", content: four },
+    { type: "image", content: five },
+    { type: "image", content: six },
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   const handleDragStart = (e, item) => {
     if (e.target.tagName === "IMG") {
       const id = `img-${Date.now()}`;
@@ -9,6 +32,45 @@ const Emojis = () => {
     } else {
       e.dataTransfer.setData("text/plain", item);
     }
+  };
+
+  const handleImageClick = () => {
+    setCurrentImageIndex(
+      (prevIndex) => (prevIndex + 1) % participationImages.length
+    );
+  };
+
+  const renderParticipationItem = () => {
+    const currentItem = participationImages[currentImageIndex];
+
+    if (currentItem.type === "emoji") {
+      return (
+        <p
+          className="draggable cursor-grab text-3xl"
+          draggable="true"
+          onClick={handleImageClick}
+          onDragStart={(event) => handleDragStart(event, currentItem.content)}
+        >
+          {currentItem.content}
+        </p>
+      );
+    }
+
+    return (
+      <p
+        className="draggable cursor-grab"
+        draggable="true"
+        onClick={handleImageClick}
+        onDragStart={(event) => handleDragStart(event, currentItem.content)}
+      >
+        <img
+          src={currentItem.content}
+          alt="Participation"
+          className="w-10 h-10 object-cover"
+          draggable="true"
+        />
+      </p>
+    );
   };
 
   return (
@@ -35,22 +97,21 @@ const Emojis = () => {
         <h2>Mantuvo la cámara encendida</h2>
       </div>
       <div className="flex gap-5">
-        <p
-          className="draggable cursor-grab text-3xl"
-          draggable="true"
-          onDragStart={(event) => handleDragStart(event, "&#128150;")}
-        >
-          &#128150;
-        </p>
+        {renderParticipationItem()}
         <h2>Participación 1</h2>
       </div>
       <div className="flex gap-5">
         <p
-          className="draggable cursor-grab text-3xl"
+          className="draggable cursor-grab "
           draggable="true"
-          onDragStart={(event) => handleDragStart(event, "&#129409;")}
+          onDragStart={(event) => handleDragStart(event, dragon)}
         >
-          &#129409;
+          <img
+            src={dragon}
+            alt="Objetivo cumplido"
+            className="w-10 h-10 object-contain"
+            draggable="true"
+          />
         </p>
         <h2>Hizo preguntas a sus compañeros</h2>
       </div>
@@ -61,9 +122,9 @@ const Emojis = () => {
         <p
           className="draggable cursor-grab text-3xl"
           draggable="true"
-          onDragStart={(event) => handleDragStart(event, "&#128151;")}
+          onDragStart={(event) => handleDragStart(event, "&#128150;")}
         >
-          &#128151;
+          &#128150;
         </p>
         <h2>Ya casi, sigue practicando</h2>
       </div>
@@ -79,11 +140,16 @@ const Emojis = () => {
       </div>
       <div className="flex gap-5">
         <p
-          className="draggable cursor-grab text-3xl"
+          className="draggable cursor-grab "
           draggable="true"
-          onDragStart={(event) => handleDragStart(event, "&#127942;")}
+          onDragStart={(event) => handleDragStart(event, estrellas)}
         >
-          &#127942;
+          <img
+            src={estrellas}
+            alt="Objetivo cumplido"
+            className="w-8 h-8 object-contain"
+            draggable="true"
+          />
         </p>
         <h2>Participación 5 estrellas</h2>
       </div>
@@ -92,21 +158,31 @@ const Emojis = () => {
 
       <div className="flex gap-5">
         <p
-          className="draggable cursor-grab text-3xl"
+          className="draggable cursor-grab "
           draggable="true"
-          onDragStart={(event) => handleDragStart(event, "&#128151;")}
+          onDragStart={(event) => handleDragStart(event, practicar)}
         >
-          &#128151;
+          <img
+            src={practicar}
+            alt="Objetivo cumplido"
+            className="w-8 h-8 object-contain"
+            draggable="true"
+          />
         </p>
         <h2>Necesita mejorar y practicar más</h2>
       </div>
       <div className="flex gap-5">
         <p
-          className="draggable cursor-grab text-3xl"
+          className="draggable cursor-grab "
           draggable="true"
-          onDragStart={(event) => handleDragStart(event, "&#9889;")}
+          onDragStart={(event) => handleDragStart(event, sobresaliente)}
         >
-          &#9889;
+          <img
+            src={sobresaliente}
+            alt="Objetivo cumplido"
+            className="w-8 h-8 object-contain"
+            draggable="true"
+          />
         </p>
         <h2>Cumplió el objetivo de la semana de manera sobresaliente</h2>
       </div>
@@ -114,10 +190,10 @@ const Emojis = () => {
         <p
           className="draggable cursor-grab "
           draggable="true"
-          onDragStart={(event) => handleDragStart(event, star)}
+          onDragStart={(event) => handleDragStart(event, semana)}
         >
           <img
-            src={star}
+            src={semana}
             alt="Objetivo cumplido"
             className="w-8 h-8 object-contain"
             draggable="true"

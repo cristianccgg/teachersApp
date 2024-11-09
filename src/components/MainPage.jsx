@@ -17,7 +17,7 @@ export const MainPage = () => {
     const newClassTime = prompt("Enter the class time/name (e.g., 4:30 pm):");
     if (newClassTime) {
       const newClass = {
-        id: `class${newClassTime.replace(/[^0-9]/g, "")}`,
+        id: `class_${Date.now()}`, // This creates a unique timestamp-based ID
         title: newClassTime,
       };
       setClasses([...classes, newClass]);
@@ -26,7 +26,9 @@ export const MainPage = () => {
 
   const handleDeleteClass = (classId) => {
     if (window.confirm("Are you sure you want to delete this class?")) {
-      setClasses(classes.filter((c) => c.id !== classId));
+      const updatedClasses = classes.filter((c) => c.id !== classId);
+      setClasses(updatedClasses);
+      localStorage.setItem("classes", JSON.stringify(updatedClasses));
       localStorage.removeItem(`students_${classId}`);
     }
   };
