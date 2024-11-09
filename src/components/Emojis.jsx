@@ -5,6 +5,7 @@ import estrellas from "../assets/Participacion 5 estrellas.jpeg";
 import sobresaliente from "../assets/Cumplio sobresaliente.jpeg";
 import semana from "../assets/Cumplio objetivo semana.jpeg";
 import practicar from "../assets/Necesit practicar.jpeg";
+import rayo from "../assets/Rayo.jpeg";
 import one from "../assets/1.jpeg";
 import two from "../assets/2.jpeg";
 import three from "../assets/3.jpeg";
@@ -58,7 +59,7 @@ const Emojis = () => {
 
     return (
       <p
-        className="draggable cursor-grab"
+        className="draggable cursor-grab w-10 h-10" // Added fixed container dimensions
         draggable="true"
         onClick={handleImageClick}
         onDragStart={(event) => handleDragStart(event, currentItem.content)}
@@ -66,7 +67,7 @@ const Emojis = () => {
         <img
           src={currentItem.content}
           alt="Participation"
-          className="w-10 h-10 object-cover"
+          className="w-full h-full object-contain" // Changed to object-contain and full dimensions
           draggable="true"
         />
       </p>
@@ -130,11 +131,16 @@ const Emojis = () => {
       </div>
       <div className="flex gap-5">
         <p
-          className="draggable cursor-grab text-3xl"
+          className="draggable cursor-grab "
           draggable="true"
-          onDragStart={(event) => handleDragStart(event, "&#9889;")}
+          onDragStart={(event) => handleDragStart(event, rayo)}
         >
-          &#9889;
+          <img
+            src={rayo}
+            alt="Objetivo cumplido"
+            className="w-12 h-10 object-cover -ms-1 -me-2"
+            draggable="true"
+          />
         </p>
         <h2>Participación con energía</h2>
       </div>
@@ -180,7 +186,7 @@ const Emojis = () => {
           <img
             src={sobresaliente}
             alt="Objetivo cumplido"
-            className="w-8 h-8 object-contain"
+            className="w-10 h-10 object-contain"
             draggable="true"
           />
         </p>
