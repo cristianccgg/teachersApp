@@ -1,9 +1,9 @@
 import { useState } from "react";
 import star from "../assets/star.png";
 
-export default function Header() {
+export default function Header({ classId }) {
   const [editableTexts, setEditableTexts] = useState(() => {
-    const storedTexts = localStorage.getItem("editableTexts");
+    const storedTexts = localStorage.getItem(`editableTexts_${classId}`);
     return storedTexts
       ? JSON.parse(storedTexts)
       : {
@@ -29,7 +29,10 @@ export default function Header() {
     const updatedTexts = { ...editableTexts, [key]: value };
     setEditableTexts(updatedTexts);
     setIsEditing((prev) => ({ ...prev, [key]: false }));
-    localStorage.setItem("editableTexts", JSON.stringify(updatedTexts)); // Guardar en Local Storage
+    localStorage.setItem(
+      `editableTexts_${classId}`,
+      JSON.stringify(updatedTexts)
+    );
   };
 
   const handleKeyDown = (e, key) => {

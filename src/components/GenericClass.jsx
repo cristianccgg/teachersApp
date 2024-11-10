@@ -203,7 +203,8 @@ function GenericClass() {
       <ClassTitle title={title} />
       <div className="flex  gap-5">
         <div>
-          <Header />
+          <Header classId={classId} />
+
           <table className="border-collapse border border-gray-400">
             <thead>
               <tr>
