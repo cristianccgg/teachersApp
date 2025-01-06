@@ -4,22 +4,30 @@ import estrellas from "../assets/Participacion 5 estrellas.jpeg";
 import sobresaliente from "../assets/Cumplio sobresaliente.jpeg";
 import semana from "../assets/Cumplio objetivo semana.jpeg";
 import practicar from "../assets/Necesit practicar.jpeg";
-import rayo from "../assets/rayo.jpeg";
-import one from "../assets/1.jpeg";
-import two from "../assets/2.jpeg";
-import three from "../assets/3.jpeg";
-import four from "../assets/4.jpeg";
-import five from "../assets/5.jpeg";
-import six from "../assets/6.jpeg";
+import seven from "../assets/7.jpeg";
+import eight from "../assets/8.jpeg";
+import nine from "../assets/9.jpeg";
+import ten from "../assets/10.jpeg";
+import eleven from "../assets/11.jpeg";
+import twelve from "../assets/12.jpeg";
+import thirteen from "../assets/13.jpeg";
+import fourteen from "../assets/14.jpeg";
+import fifteen from "../assets/15.jpeg";
+import sixteen from "../assets/16.jpeg";
+import rayo2 from "../assets/rayo2.jpeg";
 
 const Emojis = () => {
   const participationImages = [
-    { type: "image", content: one },
-    { type: "image", content: two },
-    { type: "image", content: three },
-    { type: "image", content: four },
-    { type: "image", content: five },
-    { type: "image", content: six },
+    { type: "image", content: seven },
+    { type: "image", content: eight },
+    { type: "image", content: nine },
+    { type: "image", content: ten },
+    { type: "image", content: eleven },
+    { type: "image", content: twelve },
+    { type: "image", content: thirteen },
+    { type: "image", content: fourteen },
+    { type: "image", content: fifteen },
+    { type: "image", content: sixteen },
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -132,10 +140,10 @@ const Emojis = () => {
         <p
           className="draggable cursor-grab w-10"
           draggable="true"
-          onDragStart={(event) => handleDragStart(event, rayo)}
+          onDragStart={(event) => handleDragStart(event, rayo2)}
         >
           <img
-            src={rayo}
+            src={rayo2}
             alt="Objetivo cumplido"
             className="w-12 h-10 object-cover -ms-1 -me-2"
             draggable="true"
