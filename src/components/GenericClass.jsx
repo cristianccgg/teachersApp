@@ -322,7 +322,7 @@ function GenericClass() {
                         (item, index) => (
                           <span
                             key={index}
-                            className="text-2xl cursor-pointer  items-center justify-center flex "
+                            className="text-2xl cursor-pointer flex items-center justify-center h-8 w-12"
                             onClick={() =>
                               handleEmojiClick("dropzone1", index, student.id)
                             }
@@ -332,12 +332,13 @@ function GenericClass() {
                                 dangerouslySetInnerHTML={{
                                   __html: item.content,
                                 }}
+                                className="flex items-center justify-center h-full w-full"
                               />
                             ) : (
                               <img
                                 src={item.content}
                                 alt="dropped-item"
-                                className="min-h-8 min-w-8 max-w-8 inline-block -translate-y-1"
+                                className="h-12   object-cover inline-block"
                               />
                             )}
                           </span>
