@@ -26,6 +26,7 @@ export default function Header({ classId }) {
   };
 
   const handleSave = (key, value) => {
+    // Guardar el valor incluso si está vacío, pero asegurar que el componente sepa que está vacío
     const updatedTexts = { ...editableTexts, [key]: value };
     setEditableTexts(updatedTexts);
     setIsEditing((prev) => ({ ...prev, [key]: false }));
@@ -59,17 +60,19 @@ export default function Header({ classId }) {
                     }))
                   }
                   onKeyDown={(e) => handleKeyDown(e, key)}
-                  onBlur={() => handleSave(key, value)}
+                  onBlur={() => handleSave(key, editableTexts[key])}
                   placeholder={key.toUpperCase()}
                   autoFocus
                 />
               ) : (
                 <h1
-                  className="editable-text cursor-pointer"
+                  className="editable-text cursor-pointer min-h-8 min-w-20 px-1 border border-transparent hover:border-gray-200 rounded"
                   data-key={key}
                   onClick={() => handleEdit(key)}
                 >
-                  {value}
+                  {value || (
+                    <span className="text-gray-400 italic">Editar {key}</span>
+                  )}
                 </h1>
               )}
             </div>
@@ -93,16 +96,21 @@ export default function Header({ classId }) {
             }
             onKeyDown={(e) => handleKeyDown(e, "theme")}
             onBlur={() => handleSave("theme", editableTexts.theme)}
-            placeholder="Theme"
+            placeholder="Tema de la semana"
+            className="text-center p-1 min-w-40"
             autoFocus
           />
         ) : (
           <h1
-            className="editable-text cursor-pointer"
+            className="editable-text cursor-pointer min-h-8 min-w-40 px-2 py-1 border border-transparent hover:border-gray-200 rounded text-center"
             data-key="theme"
             onClick={() => handleEdit("theme")}
           >
-            {editableTexts.theme}
+            {editableTexts.theme || (
+              <span className="text-gray-400 italic">
+                Haz clic para editar el tema
+              </span>
+            )}
           </h1>
         )}
       </div>

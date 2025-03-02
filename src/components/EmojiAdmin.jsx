@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const EmojiAdmin = () => {
@@ -41,6 +41,11 @@ const EmojiAdmin = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [dragItem, setDragItem] = useState(null);
   const [showUploadForm, setShowUploadForm] = useState(false);
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
+  const [processingFiles, setProcessingFiles] = useState(false);
+  const [processedCount, setProcessedCount] = useState(0);
+  const [totalToProcess, setTotalToProcess] = useState(0);
+  const fileInputRef = useRef(null);
 
   // Save to localStorage whenever emojiGroups changes
   useEffect(() => {
@@ -69,6 +74,55 @@ const EmojiAdmin = () => {
       };
       reader.readAsDataURL(file);
     }
+  };
+
+  const handleMultipleFileInput = (e) => {
+    handleMultipleFiles(e.target.files);
+  };
+
+  const handleMultipleFiles = (files) => {
+    if (!files || files.length === 0) return;
+
+    setProcessingFiles(true);
+    setProcessedCount(0);
+    setTotalToProcess(files.length);
+
+    const imageFiles = Array.from(files).filter((file) =>
+      file.type.startsWith("image/")
+    );
+
+    // Use a default description for bulk uploads
+    const defaultDescription = `Imagen ${selectedGroup}`;
+
+    // Process each file
+    const newEmojis = [];
+    let processed = 0;
+
+    imageFiles.forEach((file) => {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        newEmojis.push({
+          type: "image",
+          content: reader.result,
+          description: defaultDescription,
+        });
+
+        processed++;
+        setProcessedCount(processed);
+
+        // When all files are processed, update the state
+        if (processed === imageFiles.length) {
+          setEmojiGroups((prev) => ({
+            ...prev,
+            [selectedGroup]: [...prev[selectedGroup], ...newEmojis],
+          }));
+          setProcessingFiles(false);
+        }
+      };
+
+      reader.readAsDataURL(file);
+    });
   };
 
   const addEmoji = () => {
@@ -121,6 +175,34 @@ const EmojiAdmin = () => {
     setDragItem(null);
   };
 
+  // Handler for when files are dragged over the drop zone
+  const handleDragOverDropZone = (e) => {
+    e.preventDefault();
+    setIsDraggingOver(true);
+  };
+
+  // Handler for when files leave the drop zone
+  const handleDragLeaveDropZone = (e) => {
+    e.preventDefault();
+    setIsDraggingOver(false);
+  };
+
+  // Handler for when files are dropped in the drop zone
+  const handleDropOnDropZone = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDraggingOver(false);
+
+    const files = e.dataTransfer.files;
+    handleMultipleFiles(files);
+  };
+
+  const triggerFileInput = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
   const renderEmoji = (item) => {
     if (item.type === "emoji") {
       return (
@@ -162,10 +244,8 @@ const EmojiAdmin = () => {
           onChange={(e) => setSelectedGroup(e.target.value)}
         >
           <option value="participationImages">Participación 1</option>
-          <option value="generalEmojis">Emojis Entrada y Cámara</option>
-          <option value="dragonEmojis">
-            Emojis de Preguntas y participación
-          </option>
+          <option value="generalEmojis">Emojis Generales</option>
+          <option value="dragonEmojis">Emojis de Dragón</option>
           <option value="automaticFluency">
             Participación en Automatic Fluency
           </option>
@@ -173,6 +253,51 @@ const EmojiAdmin = () => {
             Participación evaluación viernes
           </option>
         </select>
+      </div>
+
+      {/* Drop zone for multiple files */}
+      <div
+        className={`border-2 border-dashed rounded-lg p-8 mb-6 text-center transition-colors duration-200 ${
+          isDraggingOver
+            ? "border-blue-500 bg-blue-50"
+            : "border-gray-300 hover:border-gray-400"
+        }`}
+        onDragOver={handleDragOverDropZone}
+        onDragLeave={handleDragLeaveDropZone}
+        onDrop={handleDropOnDropZone}
+        onClick={triggerFileInput}
+      >
+        <input
+          type="file"
+          ref={fileInputRef}
+          multiple
+          accept="image/*"
+          onChange={handleMultipleFileInput}
+          className="hidden"
+        />
+
+        {processingFiles ? (
+          <div className="text-center">
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-700 mb-2"></div>
+            <p>
+              Procesando imágenes... ({processedCount}/{totalToProcess})
+            </p>
+          </div>
+        ) : (
+          <div>
+            <div className="text-5xl mb-2">📁</div>
+            <h3 className="font-bold text-lg mb-2">
+              Arrastra y suelta múltiples imágenes aquí
+            </h3>
+            <p className="text-gray-500">
+              O haz clic para seleccionar archivos
+            </p>
+            <p className="text-xs text-gray-400 mt-2">
+              Las imágenes se agregarán al grupo "{selectedGroup}"
+              automáticamente
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="bg-gray-100 p-4 rounded-lg mb-6">
@@ -196,8 +321,19 @@ const EmojiAdmin = () => {
                     {renderEmoji(item)}
                   </div>
                   <div className="ml-4 flex-1">
-                    <p className="text-sm font-medium">{item.description}</p>
-                    <p className="text-xs text-gray-500">
+                    <input
+                      type="text"
+                      value={item.description || ""}
+                      onChange={(e) => {
+                        const newGroups = { ...emojiGroups };
+                        newGroups[selectedGroup][index].description =
+                          e.target.value;
+                        setEmojiGroups(newGroups);
+                      }}
+                      className="w-full text-sm border border-gray-200 rounded px-2 py-1"
+                      placeholder="Descripción (opcional)"
+                    />
+                    <p className="text-xs text-gray-500 mt-1">
                       {item.type === "emoji" ? "Emoji" : "Imagen"}
                     </p>
                   </div>
@@ -214,8 +350,35 @@ const EmojiAdmin = () => {
 
         {emojiGroups[selectedGroup]?.length === 0 && (
           <p className="text-gray-500 text-center py-4">
-            No hay emojis en este grupo. Agrega algunos abajo.
+            No hay emojis en este grupo. Agrega algunos arriba.
           </p>
+        )}
+
+        {/* Bulk actions */}
+        {emojiGroups[selectedGroup]?.length > 0 && (
+          <div className="mt-4 pt-4 border-t border-gray-300 flex justify-between">
+            <span className="text-sm text-gray-500">
+              {emojiGroups[selectedGroup].length}{" "}
+              {emojiGroups[selectedGroup].length === 1 ? "emoji" : "emojis"}
+            </span>
+            <button
+              onClick={() => {
+                if (
+                  window.confirm(
+                    `¿Estás seguro de que quieres eliminar todos los emojis de ${selectedGroup}?`
+                  )
+                ) {
+                  setEmojiGroups((prev) => ({
+                    ...prev,
+                    [selectedGroup]: [],
+                  }));
+                }
+              }}
+              className="text-red-500 text-sm hover:text-red-700"
+            >
+              Eliminar todos
+            </button>
+          </div>
         )}
       </div>
 
@@ -237,7 +400,7 @@ const EmojiAdmin = () => {
             }}
             className="bg-purple-500 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded"
           >
-            Agregar Imagen
+            Agregar Imagen Individual
           </button>
         </div>
       ) : (
@@ -330,14 +493,19 @@ const EmojiAdmin = () => {
         <ol className="list-decimal pl-5 space-y-2">
           <li>Selecciona el grupo donde quieres agregar o editar emojis.</li>
           <li>
+            <strong>Arrastra y suelta varias imágenes</strong> en el área
+            punteada para añadirlas todas a la vez.
+          </li>
+          <li>
             Para reorganizar los emojis, arrástralos y suéltalos en la posición
             deseada.
           </li>
-          <li>Para eliminar un emoji, haz clic en la "✕" a su derecha.</li>
           <li>
-            Para agregar un nuevo emoji, haz clic en "Agregar Emoji" o "Agregar
-            Imagen".
+            Para editar la descripción de un emoji, modifica el texto en su
+            caja.
           </li>
+          <li>Para eliminar un emoji, haz clic en la "✕" a su derecha.</li>
+          <li>Para agregar un emoji de texto, haz clic en "Agregar Emoji".</li>
           <li>Los cambios se guardan automáticamente.</li>
         </ol>
       </div>
